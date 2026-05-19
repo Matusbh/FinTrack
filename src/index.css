@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --font-dm: "DM Sans", sans-serif;
+  --font-instrument: "Instrument Serif", serif;
+  --font-jetbrains: "JetBrains Mono", monospace;
+
+  /** Colors */
+  --color-primary: var(--primary);
+}
+
+:root {
+  /* Ejemplos  */
+  --primary: #7c3aed;
+}
