@@ -1,6 +1,7 @@
+import Dashboard from "./pages/DashboardPage.jsx";
+
 function App() {
-  //Componentes aqui
-  return <h1>Hola</h1>;
+  return <Dashboard />;
 }
 
 export default App;
