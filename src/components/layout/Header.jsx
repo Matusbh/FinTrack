@@ -4,7 +4,7 @@ import Sidebar from "../layout/Sidebar.jsx";
 export default function Header() {
   return (
     <>
-      <aside className="fixed inset-y-0 left-0 w-60 bg-white border-r border-[#EAEAEA] flex flex-col z-10">
+      <aside className="hidden lg:flex flex-col fixed inset-y-0 left-0 w-60 bg-white border-r border-[#EAEAEA] z-10">
         <div className="px-6 py-5 border-b border-[#EAEAEA]">
           <span className="text-base font-semibold text-[#1A1A1A] tracking-tight">
             Fintrack
