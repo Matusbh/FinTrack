@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+body {
+  font-family: "DM Sans", system-ui, sans-serif;
+  color: #78716c;
+}
+
+#root {
+  width: 1126px;
+  max-width: 100%;
+  min-height: screen-height;
+}
+
 @theme {
   --font-dm: "DM Sans", sans-serif;
   --font-instrument: "Instrument Serif", serif;
