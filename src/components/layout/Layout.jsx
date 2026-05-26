@@ -1,1 +1,12 @@
-// Wrapper que junta el Sidebar, el Header y el contenido de cada página. Todas las páginas privadas lo usan.
+import Header from "./Header.jsx";
+
+export default function Layout({ children }) {
+  return (
+    <>
+      <div>
+        <Header />
+      </div>
+      <main className="ml-60">{children}</main>
+    </>
+  );
+}

@@ -1,6 +1,7 @@
 // Página principal de la app. Carga y muestra las SummaryCards y los gráficos de gastos.
 import Header from "../components/layout/Header.jsx";
 import { Plus } from "lucide-react";
+import ExpenseChart from "../components/dashboard/ExpenseChart.jsx";
 
 export default function DashboardPage() {
   return (
@@ -51,7 +52,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="w-px"></div>
                 <div>
-                  <p className="text-xs  mb-1">Transacciones</p>
+                  <p className="text-xs mb-1">Transacciones</p>
                   <p className="font-mono text-base text-[#1A1A1A]">12</p>
                 </div>
               </div>
@@ -59,7 +60,9 @@ export default function DashboardPage() {
           </div>
         </div>
         <div id="grid"></div>
-        <div id="gastos"></div>
+        <div id="gastos">
+          <ExpenseChart />
+        </div>
       </div>
     </>
   );
