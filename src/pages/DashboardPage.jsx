@@ -2,6 +2,7 @@
 import Header from "../components/layout/Header.jsx";
 import { Plus } from "lucide-react";
 import ExpenseChart from "../components/dashboard/ExpenseChart.jsx";
+import CategoryChart from "../components/dashboard/CategoryChart.jsx";
 
 export default function DashboardPage() {
   return (
@@ -59,9 +60,13 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-        <div id="grid"></div>
-        <div id="gastos">
-          <ExpenseChart />
+        <div id="grid" className="grid grid-cols-3 gap-4">
+          <div id="gastos-mensuales" className="col-span-2 space-y-6 mb-6">
+            <ExpenseChart />
+          </div>
+          <div id="desgloce-categoria" className="col-span-2 space-y-6">
+            <CategoryChart />
+          </div>
         </div>
       </div>
     </>
