@@ -1,29 +1,17 @@
-// Una fila de transacción: nombre, fecha, categoría y monto. Recibe los datos de una sola transacción.
-
-export default function TransactionItem({ simbolo, titulo, cat, fecha }) {
+export default function TransactionItem({ simbolo, titulo, cat, fecha, color }) {
   return (
-    <>
-      <div id="componente" className="flex gap-1">
-        <div
-          id="simbolo"
-          className="w-9 h-9 rounded-md bg-stone-100 flex items-center justify-center shrink-0"
-        >
-          {simbolo}
-        </div>
-        <div className="flex flex-col">
-          <h4 id="titulo" className="text-sm font-medium text-[#1A1A1A]">
-            {titulo}
-          </h4>
-          <div className="flex gap-1">
-            <p id="categoria" className="text-xs text-[#78716C]">
-              {cat}
-            </p>
-            <p id="fecha" className="text-xs text-[#78716C]">
-              /{fecha}
-            </p>
-          </div>
-        </div>
+    <div className="flex gap-3 items-center">
+      <div
+        className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-white text-xs font-semibold ${color}`}
+      >
+        {simbolo}
       </div>
-    </>
+      <div className="flex flex-col">
+        <h4 className="text-sm font-medium text-[#1A1A1A]">{titulo}</h4>
+        <p className="text-xs text-[#78716C]">
+          {cat} · {fecha}
+        </p>
+      </div>
+    </div>
   );
 }

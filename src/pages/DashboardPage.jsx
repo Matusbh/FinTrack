@@ -6,6 +6,7 @@ import CategoryChart from "../components/dashboard/CategoryChart.jsx";
 import Card from "../components/ui/Card.jsx";
 import SummartCard from "../components/dashboard/SummaryCard.jsx";
 import TransationItem from "../components/transactions/TransactionItem.jsx";
+import TransactionList from "../components/transactions/TransactionList.jsx";
 
 export default function DashboardPage() {
   return (
@@ -64,7 +65,10 @@ export default function DashboardPage() {
           </div>
         </div>
         <div id="grid" className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <div id="columna-izq" className="space-y-4 lg:col-span-2 lg:space-y-6">
+          <div
+            id="columna-izq"
+            className="space-y-4 lg:col-span-2 lg:space-y-6"
+          >
             <div id="gastos-mensuales">
               <ExpenseChart />
             </div>
@@ -77,6 +81,7 @@ export default function DashboardPage() {
             <SummartCard
               titulo="Mayor gasto del mes"
               icono={
+                /*Esto se cambiara en un futuro para que venga la informacion del backend */
                 <TransationItem
                   simbolo="HO"
                   titulo="Alquiler piso"
@@ -86,7 +91,33 @@ export default function DashboardPage() {
               }
               valor="-750"
             ></SummartCard>
+
+            <SummartCard
+              titulo="Categoría con más gastos"
+              icono={
+                <TransationItem
+                  simbolo="HO"
+                  titulo="Alquiler piso"
+                  cat="Hogar"
+                  fecha="06 mayo"
+                />
+              }
+              valor="750"
+            ></SummartCard>
+
+            <SummartCard
+              //Esto se cambiara en un futuro para que venga la informacion del backend
+              titulo="Ahorro estimado del mes"
+              icono="27% del salario"
+              valor="+500"
+            ></SummartCard>
           </div>
+
+          <div></div>
+        </div>
+
+        <div id="ultimas-transacciones" className="mt-6 lg:mt-8">
+          <TransactionList />
         </div>
       </div>
     </>
