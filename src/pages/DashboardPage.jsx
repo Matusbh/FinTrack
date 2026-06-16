@@ -14,7 +14,7 @@ export default function DashboardPage() {
       <div>
         <Header />
       </div>
-      <div className="lg:ml-60 flex-1 px-4 py-4 lg:px-8 lg:py-8">
+      <div className="lg:ml-10 flex-1 px-4 py-4 lg:px-8 lg:py-8">
         <div id="cabecera">
           <div className="flex items-center justify-between mb-4 mt-4 lg:mb-8 lg:mt-8">
             <div>
