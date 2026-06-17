@@ -4,6 +4,17 @@ import { LogIn, Plus } from "lucide-react";
 import Card from "../components/ui/Card.jsx";
 import Button from "../components/ui/Button.jsx";
 import TransactionItem from "../components/transactions/TransactionItem.jsx";
+import { useState } from "react";
+
+const colorPorCategoria = {
+  Alimentación: "bg-stone-500",
+  Suscripciones: "bg-blue-500",
+  Transporte: "bg-amber-500",
+  Trabajo: "bg-emerald-500",
+  Restaurantes: "bg-rose-500",
+  Hogar: "bg-orange-500",
+  Ocio: "bg-violet-500",
+};
 
 export default function TransactionsPage() {
   const numTransacciones = 5; // Número de transacciones (para mostrar en el título)
@@ -66,6 +77,12 @@ export default function TransactionsPage() {
     },
   ];
 
+  const [buscar, setBuscar] = useState("");
+  const handleBuscar = (e) => {
+    setBuscar(event.target.e);
+    //TODO Mostrar solo las transacciones con la palabra escrita
+  };
+
   const groupByDate = (trans) => {
     //Agrupamos por fechas con el reduce
     return trans.reduce((grupos, transaccion) => {
@@ -86,6 +103,15 @@ export default function TransactionsPage() {
         year: "numeric",
       })
       .toUpperCase();
+  };
+
+  //Formato del monto
+  const formatoMonto = (monto) => {
+    const abs = Math.abs(monto).toLocaleString("de-DE", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    return monto >= 0 ? `+€${abs}` : `-€${abs}`;
   };
 
   //Si no sta ordenado por fechas lo he de ordenar primero
@@ -126,28 +152,71 @@ export default function TransactionsPage() {
             />
           </div>
         </div>
+
+        <div id="filtros" className="flex justify-between">
+          <div
+            id="meses" //en la base de datos se agruparan por mes las cosas por lo que saldra aqui lo de cada mes
+            className="flex items-center gap-1 w-fit border border-[#EAEAEA] rounded-md bg-[#f4dbdb]"
+          >
+            <button className="px-3 py-2 text-[#78716C] hover:text-[#1A1A1A] transition-colors border-r-[#EAEAEA]">
+              Atras
+            </button>
+            <span class="px-2 text-sm font-medium text-[#1A1A1A] border-rl  whitespace-nowrap">
+              Mayo 2026
+            </span>
+            <button className="px-3 py-2 text-[#78716C] hover:text-[#1A1A1A] transition-colors border-r-[#EAEAEA]">
+              Alante
+            </button>
+          </div>
+          <div id="busqueda">
+            <input
+              className="w-fit pl-9 pr-4 py-2 text-sm border border-[#EAEAEA] rounded-md bg-white text-[#1A1A1A] placeholder-[#B0A8A0] focus:outline-none focus:ring-2 focus:ring-[#B45309] focus:border-transparent"
+              type="text"
+              placeholder="Buscar transacción... "
+              value={buscar}
+              onChange={handleBuscar}
+            />
+          </div>
+          <div></div>
+          <div></div>
+        </div>
         <div id="resumen">
-          <div>
+          <div className="bg-white border border-[#EAEAEA] rounded-lg mt-5">
             {
               // Primero iteraos por fechas
             }
             {Object.entries(agrupado).map(([fecha, i]) => (
-              <div key={fecha}>
-                <p>{formatDate(fecha)}</p>
+              <div
+                key={fecha}
+                class="px-6 py-3 border-b border-[#EAEAEA] bg-[#FAFAF8] "
+              >
+                <div className="px-6 py-3 border-b border-[#EAEAEA] bg-[#FAFAF8]">
+                  <span class="text-xs font-medium text-[#78716C] uppercase tracking-widest">
+                    {formatDate(fecha)}
+                  </span>
+                </div>
                 {
                   //Luego iteramos por transacciones
                   i.map((i) => (
-                    <div key={i.id}>
-                      <TransactionItem
-                        simbolo={i.simbolo}
-                        titulo={i.descripcion}
-                        cat={i.categoria}
-                      />
-                      <span
-                        className={`text-sm font-semibold tabular-nums${i.monto >= 0 ? "text-emerald-600" : "text-rose-500"}`}
+                    <div className="divide-y divide-[#EAEAEA]">
+                      <div
+                        key={i.id}
+                        className=" flex items-center justify-between px-6 py-3.5 hover:bg-[#FAFAF8] transition-colors groupflex"
                       >
-                        {}
-                      </span>
+                        <TransactionItem
+                          simbolo={i.simbolo}
+                          titulo={i.descripcion}
+                          cat={i.categoria}
+                          color={
+                            colorPorCategoria[i.categoria] ?? "bg-stone-400"
+                          }
+                        />
+                        <span
+                          className={`text-sm font-semibold tabular-nums${i.monto >= 0 ? "text-emerald-600" : "text-rose-500"}`}
+                        >
+                          {formatoMonto(i.monto)}
+                        </span>
+                      </div>
                     </div>
                   ))
                 }

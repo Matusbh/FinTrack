@@ -1,8 +1,14 @@
-export default function TransactionItem({ simbolo, titulo, cat, fecha, color }) {
+export default function TransactionItem({
+  simbolo,
+  titulo,
+  cat,
+  fecha,
+  color,
+}) {
   return (
     <div className="flex gap-3 items-center">
       <div
-        className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-white text-xs font-semibold ${color}`}
+        className={`w-10 h-10 rounded-sm flex items-center justify-center shrink-0 text-white text-xs font-semibold ${color}`}
       >
         {simbolo}
       </div>
