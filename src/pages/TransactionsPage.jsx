@@ -7,6 +7,7 @@ import TransactionItem from "../components/transactions/TransactionItem.jsx";
 import { useState } from "react";
 
 const colorPorCategoria = {
+  //* Esto ha de sacarse dekl backend en un futuro.
   Alimentación: "bg-stone-500",
   Suscripciones: "bg-blue-500",
   Transporte: "bg-amber-500",
@@ -78,9 +79,22 @@ export default function TransactionsPage() {
   ];
 
   const [buscar, setBuscar] = useState("");
+  const [filtroGasto, setFiltroGasto] = useState("");
+  const [filtroCategoria, setFiltroCategoria] = useState(
+    "Todas las categorías",
+  );
+
   const handleBuscar = (e) => {
     setBuscar(event.target.e);
     //TODO Mostrar solo las transacciones con la palabra escrita
+    return {
+      //Devolvemos solo lo que buscamos
+    };
+  };
+
+  // Esta funcion eds solo para guardar la seleccion del usuario.
+  const handleFiltrogasto = (e) => {
+    setFiltroGasto(e.target.value);
   };
 
   const groupByDate = (trans) => {
@@ -120,7 +134,17 @@ export default function TransactionsPage() {
     (a, b) => new Date(b.date) - new Date(a.date),
   );
 
-  const agrupado = groupByDate(sorted);
+  const filtradoTransacciones = sorted.filter((transaccion) => {
+    if (filtroGasto === "Gastos" && transaccion.tipo === "gasto") {
+      return true;
+    } else if (filtroGasto === "Ingresos" && transaccion.tipo === "ingreso") {
+      return true;
+    } else if (filtroGasto === "Todos") {
+      return true;
+    }
+  });
+
+  const agrupado = groupByDate(filtradoTransacciones);
 
   return (
     <>
@@ -155,7 +179,8 @@ export default function TransactionsPage() {
 
         <div id="filtros" className="flex justify-between">
           <div
-            id="meses" //en la base de datos se agruparan por mes las cosas por lo que saldra aqui lo de cada mes
+            id="meses"
+            //en la base de datos se agruparan por mes las cosas por lo que saldra aqui lo de cada mes
             className="flex items-center gap-1 w-fit border border-[#EAEAEA] rounded-md bg-[#f4dbdb]"
           >
             <button className="px-3 py-2 text-[#78716C] hover:text-[#1A1A1A] transition-colors border-r-[#EAEAEA]">
@@ -177,8 +202,34 @@ export default function TransactionsPage() {
               onChange={handleBuscar}
             />
           </div>
-          <div></div>
-          <div></div>
+          <div id="gastos">
+            <select
+              name="gastos"
+              id="gastos"
+              onChange={handleFiltrogasto}
+              placeholder="Todos"
+            >
+              <option value="Todos" de>
+                Todos
+              </option>
+              <option value="Gastos">Gastos</option>
+              <option value="Ingresos">Ingresos</option>
+            </select>
+          </div>
+          <div id="cat">
+            <select name="gategorias" id="gategorias">
+              <option value="Todas" de>
+                Todas las categorias
+              </option>
+              {Object.entries(colorPorCategoria).map(([cat, valor]) => {
+                return (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
         </div>
         <div id="resumen">
           <div className="bg-white border border-[#EAEAEA] rounded-lg mt-5">
@@ -210,6 +261,7 @@ export default function TransactionsPage() {
                           color={
                             colorPorCategoria[i.categoria] ?? "bg-stone-400"
                           }
+                          tipoGasto={i.tipo}
                         />
                         <span
                           className={`text-sm font-semibold tabular-nums${i.monto >= 0 ? "text-emerald-600" : "text-rose-500"}`}

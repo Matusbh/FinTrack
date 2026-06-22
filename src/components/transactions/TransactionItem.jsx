@@ -4,6 +4,7 @@ export default function TransactionItem({
   cat,
   fecha,
   color,
+  tipoGasto,
 }) {
   return (
     <div className="flex gap-3 items-center">
@@ -17,6 +18,7 @@ export default function TransactionItem({
         <p className="text-xs text-[#78716C]">
           {cat} · {fecha}
         </p>
+        <p>{tipoGasto}</p>
       </div>
     </div>
   );
